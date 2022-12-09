@@ -2,9 +2,10 @@ var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
 var logger = require("morgan");
 var cors = require("cors");
-
+var session = require('express-session');
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
 var indexRouter = require("./routes/index");
@@ -30,14 +31,24 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 
-
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: true }
+}));
 
 passport.use(
   new GoogleStrategy(
     {
-     //input google id
+      //input google id
+      clientID:
+        "443564131278-c7pkbbkgp2vl8a4c2iar32e9ghtdu8qa.apps.googleusercontent.com",
+      clientSecret: "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",
+      callbackURL: "http://localhost:3000/auth/google/callback",
     },
     (accessToken, refreshToken, profile, cb) => {
+     
       return cb(null, profile);
     }
   )

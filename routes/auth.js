@@ -20,7 +20,9 @@ router.get(
     session: false,
   }),
   (req, res) => {
-    console.log('data123')
+    // console.log("acc", acc);
+    // res.redirect(`http://localhost:4200`);
+
     res.json({
       status: true,
       data: {
