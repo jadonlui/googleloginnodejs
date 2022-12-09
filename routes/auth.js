@@ -20,18 +20,20 @@ router.get(
     session: false,
   }),
   (req, res) => {
-    // console.log("acc", acc);
-    // res.redirect(`http://localhost:4200`);
+   
+    res.redirect(
+      `http://localhost:4200?id=${req.user.id}&name=${req.user.displayName}`
+    );
 
-    res.json({
-      status: true,
-      data: {
-        id: req.user.id,
-        name: req.user.displayName,
-        account: req.user.emails[0].value,
-        //  userAll: req.user,
-      },
-    });
+    // res.json({
+    //   status: true,
+    //   data: {
+    //     id: req.user.id,
+    //     name: req.user.displayName,
+    //     account: req.user.emails[0].value,
+    //     //  userAll: req.user,
+    //   },
+    // });
   }
 );
 
